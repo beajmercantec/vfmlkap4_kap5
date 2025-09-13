@@ -1,6 +1,6 @@
 ## Korrekt flow (SoC: Separation of Concerns)
 UI → NLU → DM → NLG → UI
-### Forklaring
+### Forklaring På ChatService
 	•	UI (Blazor) kalder kun ChatService.HandleUserInpu(userInput)
 	•	BlazorUI/Services/ChatService:
 	    •	Kalder NLU.Predict(userInput)
