@@ -1,0 +1,8 @@
+Text,Intent
+"jeg vil gerne booke et værelse",BookRoom
+"kan jeg reservere et hotel i Aarhus",BookRoom
+"jeg skal bruge et værelse til 2 gæster",BookRoom
+"jeg vil ændre min reservation",ChangeBooking
+"jeg skal flytte min booking",ChangeBooking
+"jeg vil afbestille",CancelBooking
+"kan jeg få pengene tilbage",CancelBooking

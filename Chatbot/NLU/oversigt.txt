@@ -1,0 +1,10 @@
+# INluEngine.cs
+Interface som definerer metoden Predict(string)
+# NluResult.cs
+Returneringsmodel for intent og entities
+# IntentModelInput.cs
+Data-model til ML.NET træning (tekst + label)
+# HotelBookingData.cs
+Datasæt med eksempler på intents (bruges både til ML og clustering)
+# HybridNlu.cs
+Hovedmotoren for NLU – kombinerer ML.NET (supervised) og KMeans (unsupervised)

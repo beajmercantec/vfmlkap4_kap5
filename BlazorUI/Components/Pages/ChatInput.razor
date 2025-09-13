@@ -1,0 +1,31 @@
+<div class="input-group mt-3">
+    <input @bind="input" @bind:event="oninput" class="form-control" @onkeydown="HandleKeyPress" placeholder="Skriv din besked..." />
+    <button class="btn btn-primary" @onclick="Send">Send</button>
+
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnSend { get; set; }
+
+    private string input = "";
+
+    private async Task Send()
+    {
+      
+        if (!string.IsNullOrWhiteSpace(input))
+        {
+            await OnSend.InvokeAsync(input);
+            input = "";
+        }
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await Send();
+        }
+    }
+}
+
+

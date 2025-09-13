@@ -1,0 +1,56 @@
+﻿@page "/"
+
+@rendermode InteractiveServer 
+@using BlazorUI.Services
+@using Chatbot.Models
+@inject ChatService ChatService
+
+
+<h3>Hotel Chatbot</h3>
+<p>Velkommen til vores hotel chatbot! Stil dine spørgsmål nedenfor.</p>
+
+<ChatWindow Messages="Messages" />
+<ChatInput OnSend="HandleSend" />
+
+@code {
+    private List<ChatMessage> Messages = new();
+    private bool _initialized = false;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && !_initialized)
+        {
+            Messages.Add(new ChatMessage
+            {
+                Text = "Hej! Hvilken by vil du bo i?",
+                IsUser = false,
+                Timestamp = DateTime.Now
+            });
+
+            _initialized = true;
+            StateHasChanged(); // Tving UI-opdatering
+        }
+    }
+    private async Task HandleSend(string userInput)
+    {
+          try
+    {
+           
+        if (!string.IsNullOrWhiteSpace(userInput))
+        {
+            Messages.Add(new ChatMessage { Text = userInput, IsUser = true });
+
+            var response = await ChatService.HandleUserInput(userInput);
+            Messages.Add(new ChatMessage { Text = response, IsUser = false });
+
+            StateHasChanged();
+        }
+         }
+    catch (Exception ex)
+    {
+        Console.WriteLine("FEJL I HandleSend: " + ex.Message);
+    }
+}
+   
+
+}

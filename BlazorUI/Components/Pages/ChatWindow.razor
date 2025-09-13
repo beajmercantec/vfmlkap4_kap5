@@ -1,0 +1,25 @@
+@using Chatbot.Models
+@code {
+    [Parameter] public List<ChatMessage> Messages { get; set; } = new();
+
+    private ElementReference messageEnd;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await messageEnd.FocusAsync(); // auto-scroll
+    }
+}
+
+<div class="chat-window p-3 border rounded" style="height: 400px; overflow-y: auto;">
+    @foreach (var msg in Messages)
+    {
+        <div class="d-flex @(msg.IsUser ? "justify-content-end" : "justify-content-start") mb-2">
+            <div class="p-2 rounded shadow-sm" style="max-width: 60%; background-color: @(msg.IsUser ? "#cce5ff" : "#e2e3e5");">
+                <div class="small text-muted">@DateTime.Now.ToShortTimeString()</div>
+                <div>@msg.Text</div>
+            </div>
+        </div>
+    }
+
+    <div tabindex="-1" @ref="messageEnd"></div>
+</div>
